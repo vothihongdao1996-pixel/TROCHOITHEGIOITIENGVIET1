@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* Định nghĩa phông UTM Avo - Mẫu chữ chuẩn Tiểu học Lớp 1 (chữ a, ă, â một tầng tròn) */
+@font-face {
+  font-family: 'UTM Avo';
+  src: local('UTM Avo'),
+       local('UTMAvo'),
+       local('UTM-Avo'),
+       url('/fonts/UTMAvo.ttf') format('truetype'),
+       url('/fonts/utm-avo.ttf') format('truetype'),
+       url('/fonts/UTMAvo.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UTM Avo';
+  src: local('UTM Avo Bold'),
+       local('UTMAvo-Bold'),
+       local('UTM-Avo-Bold'),
+       url('/fonts/UTMAvo-Bold.ttf') format('truetype'),
+       url('/fonts/utm-avo-bold.ttf') format('truetype'),
+       url('/fonts/UTMAvoBold.ttf') format('truetype'),
+       url('/fonts/UTMAvo-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UTM Avo';
+  src: local('UTM Avo Bold'),
+       local('UTMAvo-Bold'),
+       url('/fonts/UTMAvo-Bold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'UTM Avo';
+  src: local('UTM Avo Bold'),
+       local('UTMAvo-Bold'),
+       url('/fonts/UTMAvo-Bold.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    /* Ưu tiên 1: UTM Avo nếu có trên máy hoặc trong thư mục public/fonts/
+       Ưu tiên 2: Quicksand (Google Fonts) chuẩn hình học chữ in thường 1 tầng: a, ă, â, g, y */
+    font-family: 'UTM Avo', 'UTMAvo', 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f0fdf4;
+    color: #1e293b;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Lớp hỗ trợ đặc biệt cho bảng 29 chữ cái, thẻ chữ, trò chơi và câu hỏi */
+.font-vietnamese,
+.font-letter,
+.letter-display {
+  font-family: 'UTM Avo', 'UTMAvo', 'Quicksand', sans-serif !important;
+}
+
+/* Custom playful pulse and bounce animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+/* 3D button press effect */
+.btn-3d-yellow {
+  background: linear-gradient(180deg, #fde047 0%, #eab308 100%);
+  border-bottom: 4px solid #ca8a04;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease;
+}
+.btn-3d-yellow:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.btn-3d-green {
+  background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+  border-bottom: 4px solid #16a34a;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease;
+}
+.btn-3d-green:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.btn-3d-blue {
+  background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 100%);
+  border-bottom: 4px solid #2563eb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease;
+}
+.btn-3d-blue:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+
+.btn-3d-pink {
+  background: linear-gradient(180deg, #f472b6 0%, #ec4899 100%);
+  border-bottom: 4px solid #db2777;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease;
+}
+.btn-3d-pink:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+

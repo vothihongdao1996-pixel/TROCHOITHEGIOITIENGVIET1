@@ -1,0 +1,8 @@
+{
+  "name": "Remix Thế Giới Tiếng Việt Lớp 1 – Cùng học với cô Đào",
+  "description": "Ứng dụng học Tiếng Việt lớp 1 sinh động theo định hướng Chương trình GDPT 2018 (bộ Kết nối tri thức với cuộc sống) với cô Đào và bạn Ong Vàng.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
