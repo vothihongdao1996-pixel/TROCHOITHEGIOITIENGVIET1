@@ -214,9 +214,9 @@ export const VIETNAMESE_29_LETTERS: VietnameseLetter[] = [
   {
     id: 21, letter: 'q', upper: 'Q', lower: 'q',
     letterName: 'quy', letterNameSpeechText: 'Chữ quy',
-    soundText: 'quờ', phonemeSpeechText: 'quờ', phonemeSound: '/quờ/',
+    soundText: 'cu', phonemeSpeechText: 'cu', phonemeSound: '/cu/',
     sampleSyllables: ['quê', 'quà', 'qua'],
-    isAuditedByTeacher: true, teacherNote: 'Đọc âm quờ, thường đi kèm u thành qu.'
+    isAuditedByTeacher: true, teacherNote: 'Đọc âm cu theo quy ước chuẩn sư phạm được yêu cầu.'
   },
   {
     id: 22, letter: 'r', upper: 'R', lower: 'r',

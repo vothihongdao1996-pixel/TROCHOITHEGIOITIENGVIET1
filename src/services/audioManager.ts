@@ -251,7 +251,7 @@ class AudioManagerService {
     n: 'nờ',
     p: 'pờ',
     ph: 'phờ',
-    q: 'quờ',
+    q: 'cu',
     qu: 'quờ',
     r: 'rờ',
     s: 'sờ',

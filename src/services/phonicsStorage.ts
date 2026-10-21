@@ -2,8 +2,8 @@ import { PhonicsReadingItem, VietnameseLetter } from '../types';
 import { INITIAL_PHONICS_ITEMS } from '../data/phonicsData';
 import { VIETNAMESE_29_LETTERS } from '../data/learningData';
 
-const PHONICS_STORAGE_KEY = 'viet1_phonics_items_v2';
-const LETTERS_STORAGE_KEY = 'viet1_29_letters_v4';
+const PHONICS_STORAGE_KEY = 'viet1_phonics_items_v3';
+const LETTERS_STORAGE_KEY = 'viet1_29_letters_v5';
 
 class PhonicsStorageService {
   private items: PhonicsReadingItem[] = [];
@@ -20,8 +20,19 @@ class PhonicsStorageService {
       const data = localStorage.getItem(PHONICS_STORAGE_KEY);
       if (data) {
         const parsed = JSON.parse(data);
-        if (Array.isArray(parsed) && parsed.length > 0) {
+        if (Array.isArray(parsed) && parsed.length >= INITIAL_PHONICS_ITEMS.length) {
           this.items = parsed;
+          return;
+        }
+      }
+      // Kiểm tra dữ liệu cũ để giữ lại các mục do giáo viên tự tạo (isCustom) nếu có
+      const oldData = localStorage.getItem('viet1_phonics_items_v2');
+      if (oldData) {
+        const oldParsed = JSON.parse(oldData);
+        if (Array.isArray(oldParsed)) {
+          const customItems = oldParsed.filter((it: PhonicsReadingItem) => it.isCustom);
+          this.items = [...customItems, ...INITIAL_PHONICS_ITEMS];
+          this.saveItems();
           return;
         }
       }
@@ -47,6 +58,13 @@ class PhonicsStorageService {
       if (data) {
         const parsed = JSON.parse(data);
         if (Array.isArray(parsed) && parsed.length === 29 && parsed[0]?.soundText) {
+          // Đảm bảo chữ q luôn có âm 'cu'
+          const letterQ = parsed.find((l: VietnameseLetter) => l.lower === 'q');
+          if (letterQ && letterQ.phonemeSpeechText === 'quờ') {
+            letterQ.soundText = 'cu';
+            letterQ.phonemeSpeechText = 'cu';
+            letterQ.phonemeSound = '/cu/';
+          }
           this.letters = parsed;
           return;
         }

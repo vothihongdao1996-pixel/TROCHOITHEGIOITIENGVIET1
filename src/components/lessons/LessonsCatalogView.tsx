@@ -28,12 +28,20 @@ export const LessonsCatalogView: React.FC<Props> = ({
   isPresentationMode = false,
   onTogglePresentationMode,
 }) => {
+  const [selectedSemester, setSelectedSemester] = useState<'all' | 'hk1' | 'hk2'>('all');
   const [selectedWeek, setSelectedWeek] = useState<number | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const weeks = Array.from(new Set(GRADE_1_LESSONS.map((l) => l.week))).sort((a, b) => a - b);
+  const availableWeeks = Array.from(new Set(GRADE_1_LESSONS.map((l) => l.week))).sort((a, b) => a - b);
+  const weeks = availableWeeks.filter((w) => {
+    if (selectedSemester === 'hk1') return w <= 18;
+    if (selectedSemester === 'hk2') return w >= 19;
+    return true;
+  });
 
   const filteredLessons = GRADE_1_LESSONS.filter((lesson) => {
+    if (selectedSemester === 'hk1' && lesson.week > 18) return false;
+    if (selectedSemester === 'hk2' && lesson.week <= 18) return false;
     if (selectedWeek !== 'all' && lesson.week !== selectedWeek) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
@@ -87,34 +95,81 @@ export const LessonsCatalogView: React.FC<Props> = ({
         </div>
 
         {/* Search & Filter Bar */}
-        <div className="mt-6 pt-6 border-t border-emerald-500/50 flex flex-wrap items-center justify-between gap-4">
-          {/* Week Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-1">
+        {/* Semester & Week Filter Bar */}
+        <div className="mt-6 pt-6 border-t border-emerald-500/50 space-y-3">
+          {/* Semester Tabs */}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-black text-emerald-200 uppercase tracking-wider mr-1">Học kì:</span>
             <button
-              onClick={() => setSelectedWeek('all')}
-              className={`px-3.5 py-1.5 rounded-xl font-extrabold text-xs transition-all cursor-pointer ${
-                selectedWeek === 'all'
-                  ? 'bg-white text-emerald-800 shadow-sm'
+              onClick={() => {
+                setSelectedSemester('all');
+                setSelectedWeek('all');
+              }}
+              className={`px-3.5 py-1.5 rounded-xl font-black text-xs transition-all cursor-pointer ${
+                selectedSemester === 'all'
+                  ? 'bg-amber-400 text-slate-900 shadow-sm'
                   : 'bg-emerald-700/60 text-emerald-100 hover:bg-emerald-700'
               }`}
             >
-              Tất cả các tuần ({GRADE_1_LESSONS.length} bài)
+              Cả năm ({GRADE_1_LESSONS.length} bài)
             </button>
+            <button
+              onClick={() => {
+                setSelectedSemester('hk1');
+                setSelectedWeek('all');
+              }}
+              className={`px-3.5 py-1.5 rounded-xl font-black text-xs transition-all cursor-pointer ${
+                selectedSemester === 'hk1'
+                  ? 'bg-amber-400 text-slate-900 shadow-sm'
+                  : 'bg-emerald-700/60 text-emerald-100 hover:bg-emerald-700'
+              }`}
+            >
+              Học kì I (Âm & Vần • Tuần 1 - 18)
+            </button>
+            <button
+              onClick={() => {
+                setSelectedSemester('hk2');
+                setSelectedWeek('all');
+              }}
+              className={`px-3.5 py-1.5 rounded-xl font-black text-xs transition-all cursor-pointer ${
+                selectedSemester === 'hk2'
+                  ? 'bg-amber-400 text-slate-900 shadow-sm'
+                  : 'bg-emerald-700/60 text-emerald-100 hover:bg-emerald-700'
+              }`}
+            >
+              Học kì II (Chủ điểm & Luyện đọc • Tuần 19 - 35)
+            </button>
+          </div>
 
-            {weeks.map((w) => (
+          {/* Week Filter Pills & Search */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
+              <span className="text-xs font-black text-emerald-200 uppercase tracking-wider shrink-0 mr-1">Tuần:</span>
               <button
-                key={w}
-                onClick={() => setSelectedWeek(w)}
-                className={`px-3.5 py-1.5 rounded-xl font-extrabold text-xs transition-all cursor-pointer ${
-                  selectedWeek === w
-                    ? 'bg-white text-emerald-800 shadow-sm'
+                onClick={() => setSelectedWeek('all')}
+                className={`px-3 py-1 rounded-xl font-extrabold text-xs transition-all cursor-pointer shrink-0 ${
+                  selectedWeek === 'all'
+                    ? 'bg-white text-emerald-800 shadow-sm font-black'
                     : 'bg-emerald-700/60 text-emerald-100 hover:bg-emerald-700'
                 }`}
               >
-                Tuần {w}
+                Tất cả
               </button>
-            ))}
-          </div>
+
+              {weeks.map((w) => (
+                <button
+                  key={w}
+                  onClick={() => setSelectedWeek(w)}
+                  className={`px-2.5 py-1 rounded-xl font-extrabold text-xs transition-all cursor-pointer shrink-0 ${
+                    selectedWeek === w
+                      ? 'bg-white text-emerald-800 shadow-sm font-black ring-2 ring-amber-300'
+                      : 'bg-emerald-700/60 text-emerald-100 hover:bg-emerald-700'
+                  }`}
+                >
+                  T{w}
+                </button>
+              ))}
+            </div>
 
           {/* Search Box */}
           <div className="relative min-w-[240px]">
@@ -129,6 +184,7 @@ export const LessonsCatalogView: React.FC<Props> = ({
           </div>
         </div>
       </div>
+    </div>
 
       {/* Lesson Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -1,6 +1,9 @@
 import { LessonTopic } from '../types';
+import { SEMESTER_1_PART2_LESSONS } from './lessonsDataPart2';
+import { SEMESTER_1_PART3_LESSONS } from './lessonsDataPart3';
+import { SEMESTER_1_PART4_AND_SEMESTER_2_LESSONS } from './lessonsDataPart4';
 
-export const GRADE_1_LESSONS: LessonTopic[] = [
+export const SEMESTER_1_PART1_LESSONS: LessonTopic[] = [
   {
     id: 'bai-1',
     week: 1,
@@ -449,4 +452,11 @@ export const GRADE_1_LESSONS: LessonTopic[] = [
       },
     ],
   },
+];
+
+export const GRADE_1_LESSONS: LessonTopic[] = [
+  ...SEMESTER_1_PART1_LESSONS,
+  ...SEMESTER_1_PART2_LESSONS,
+  ...SEMESTER_1_PART3_LESSONS,
+  ...SEMESTER_1_PART4_AND_SEMESTER_2_LESSONS,
 ];

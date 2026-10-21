@@ -1,6 +1,9 @@
 import { PhonicsReadingItem } from '../types';
+import { EXTENDED_RHYMES } from './phonicsDataRhymes';
+import { EXTENDED_SYLLABLES } from './phonicsDataSyllables';
+import { EXTENDED_WORDS } from './phonicsDataWords';
 
-export const INITIAL_PHONICS_ITEMS: PhonicsReadingItem[] = [
+export const BASE_PHONICS_ITEMS: PhonicsReadingItem[] = [
   // ------------------------------------------------------------------
   // 1. TÊN CHỮ CÁI (29 chữ cái tiếng Việt)
   // Quy ước sư phạm: Tên chữ cái dùng để gọi tên con chữ trong bảng chữ cái
@@ -969,4 +972,11 @@ export const INITIAL_PHONICS_ITEMS: PhonicsReadingItem[] = [
     isAuditedByTeacher: true,
     teacherNote: 'Chú chim hót líu lo trên cành cây.',
   },
+];
+
+export const INITIAL_PHONICS_ITEMS: PhonicsReadingItem[] = [
+  ...BASE_PHONICS_ITEMS,
+  ...EXTENDED_RHYMES,
+  ...EXTENDED_SYLLABLES,
+  ...EXTENDED_WORDS,
 ];
