@@ -22,6 +22,7 @@ export interface WheelGameRound {
   meaning: string;
   speechText: string;
   mascotTip: string;
+  explanation?: string;
 }
 
 export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
@@ -36,6 +37,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'người cha thân yêu trong gia đình',
     speechText: 'bờ a ba',
     mascotTip: 'Bé hãy xoay âm b ghép với vần a nhé!',
+    explanation: 'Âm đầu b ghép với vần a tạo thành tiếng ba, là người cha thân yêu trong gia đình.',
   },
   {
     id: 2,
@@ -48,6 +50,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'chiếc ca uống nước xinh xắn',
     speechText: 'cờ a ca',
     mascotTip: 'Xoay âm cờ ghép với vần a con nhé!',
+    explanation: 'Âm đầu c ghép với vần a tạo thành tiếng ca, là chiếc ca uống nước xinh xắn.',
   },
   {
     id: 3,
@@ -60,6 +63,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'quả me chua ngọt nấu canh',
     speechText: 'mờ e me',
     mascotTip: 'Xoay âm mờ ghép với vần e nào!',
+    explanation: 'Âm đầu m ghép với vần e tạo thành tiếng me, là quả me chua ngọt nấu canh.',
   },
   {
     id: 4,
@@ -72,6 +76,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'chú bò vàng gặm cỏ trên đồi',
     speechText: 'bờ o bo huyền bò',
     mascotTip: 'Âm b ghép với vần o và thanh huyền nhé!',
+    explanation: 'Âm đầu b ghép với vần o thêm thanh huyền tạo thành tiếng bò, là chú bò vàng gặm cỏ.',
   },
   {
     id: 5,
@@ -84,6 +89,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'chú cá bơi tung tăng dưới nước',
     speechText: 'cờ a ca sắc cá',
     mascotTip: 'c ghép a thêm thanh sắc thành tiếng cá!',
+    explanation: 'Âm đầu c ghép với vần a thêm thanh sắc tạo thành tiếng cá, là chú cá bơi tung tăng dưới nước.',
   },
   {
     id: 6,
@@ -96,6 +102,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'chiếc lá cây xanh tươi',
     speechText: 'lờ a la sắc lá',
     mascotTip: 'Âm l ghép với vần a và thanh sắc!',
+    explanation: 'Âm đầu l ghép với vần a thêm thanh sắc tạo thành tiếng lá, là chiếc lá cây xanh tươi.',
   },
   {
     id: 7,
@@ -108,6 +115,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'chú gà trống gáy vang sớm mai',
     speechText: 'gờ a ga huyền gà',
     mascotTip: 'Âm g ghép với a và thanh huyền!',
+    explanation: 'Âm đầu g ghép với vần a thêm thanh huyền tạo thành tiếng gà, là chú gà trống gáy vang sớm mai.',
   },
   {
     id: 8,
@@ -120,6 +128,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'chiếc nơ hoa cài trên mái tóc bé',
     speechText: 'nờ ơ nơ',
     mascotTip: 'Âm n ghép với vần ơ xinh xắn con nhé!',
+    explanation: 'Âm đầu n ghép với vần ơ tạo thành tiếng nơ, là chiếc nơ hoa cài trên mái tóc bé.',
   },
   {
     id: 9,
@@ -132,6 +141,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'chú dê con tung tăng trên đồng cỏ',
     speechText: 'dờ ê dê',
     mascotTip: 'Âm d ghép với vần ê đội mũ!',
+    explanation: 'Âm đầu d ghép với vần ê tạo thành tiếng dê, là chú dê con tung tăng trên đồng cỏ.',
   },
   {
     id: 10,
@@ -144,6 +154,7 @@ export const WHEEL_GAME_ROUNDS: WheelGameRound[] = [
     meaning: 'chú thỏ trắng có đôi tai dài',
     speechText: 'thờ o tho hỏi thỏ',
     mascotTip: 'Âm ghép th ghép với o và thanh hỏi!',
+    explanation: 'Âm đầu th ghép với vần o thêm thanh hỏi tạo thành tiếng thỏ, là chú thỏ trắng có đôi tai dài.',
   },
 ];
 
@@ -944,6 +955,7 @@ export interface StorySequenceRound {
   cards: { id: string; stepOrder: number; text: string; emoji: string }[];
   narration: string;
   mascotTip: string;
+  explanation?: string;
 }
 
 export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
@@ -957,6 +969,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Đầu tiên bé gieo hạt, sau đó hạt nảy mầm, cuối cùng nở hoa rực rỡ.',
     mascotTip: 'Bắt đầu từ gieo hạt bé nhỏ con nhé!',
+    explanation: 'Thứ tự đúng của câu chuyện: Gieo hạt xuống đất xốp, hạt nảy mầm vươn lên, rồi cây nở những bông hoa tươi rực rỡ.',
   },
   {
     id: 2,
@@ -968,6 +981,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Gà mẹ ấp trứng, rồi vỏ trứng nứt, chú gà con kêu chíp chíp chào đời.',
     mascotTip: 'Quả trứng tròn có trước con nhé!',
+    explanation: 'Thứ tự đúng của câu chuyện: Gà mẹ ấp quả trứng tròn, vỏ trứng nứt ra tí tách, rồi chú gà con lông vàng chào đời.',
   },
   {
     id: 3,
@@ -979,6 +993,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Bé lấy xà phòng, xoa đều rồi xả sạch bọt dưới vòi nước.',
     mascotTip: 'Nhớ xoa xà phòng trước khi xả nước!',
+    explanation: 'Thứ tự đúng của câu chuyện: Lấy xà phòng tạo bọt, xoa đều hai bàn tay, rồi rửa sạch dưới vòi nước trong.',
   },
   {
     id: 4,
@@ -990,6 +1005,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Sáng dậy đánh răng, ngày đi học, tối ngủ ngoan.',
     mascotTip: 'Bắt đầu từ sáng sớm mai thức dậy!',
+    explanation: 'Thứ tự đúng của câu chuyện: Sớm mai thức dậy đánh răng, đeo cặp sách vui bước tới trường, buổi tối ngủ ngoan đúng giờ.',
   },
   {
     id: 5,
@@ -1001,6 +1017,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Từ chú sâu nhỏ thành kén, rồi bay lượn thành cánh bướm xinh.',
     mascotTip: 'Chú sâu bò trên lá là bước đầu tiên!',
+    explanation: 'Thứ tự đúng của câu chuyện: Chú sâu nhỏ bò trên lá, hóa thành chiếc kén ngủ say, rồi biến thành cánh bướm rực rỡ.',
   },
   {
     id: 6,
@@ -1012,6 +1029,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Múc nước, tưới mát cho cây, cây hoa nở nụ cười tươi.',
     mascotTip: 'Lấy nước trước rồi mới tưới cây con nhé!',
+    explanation: 'Thứ tự đúng của câu chuyện: Múc nước đầy ô doa nhỏ, tưới đều lên gốc cây hoa, và bông hoa khoe sắc tươi cười.',
   },
   {
     id: 7,
@@ -1023,6 +1041,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Trộn bột, nướng bánh rồi thắp nến chúc mừng sinh nhật.',
     mascotTip: 'Bột mì được trộn đầu tiên!',
+    explanation: 'Thứ tự đúng của câu chuyện: Trộn bột mì và trứng thơm, nướng bánh vàng ươm trong lò, rồi trang trí nến và hát chúc mừng sinh nhật.',
   },
   {
     id: 8,
@@ -1034,6 +1053,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Cấy lúa, đợi lúa chín rồi gặt hái thóc vàng.',
     mascotTip: 'Cấy mạ non là bước mở đầu!',
+    explanation: 'Thứ tự đúng của câu chuyện: Cấy mạ non xanh mướt ruộng đồng, lúa chín vàng óng ánh nắng mai, rồi thu hoạch những bao thóc đầy.',
   },
   {
     id: 9,
@@ -1045,6 +1065,7 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Tha rơm cỏ, đan tổ ấm, rồi sinh ra trứng chim xinh xắn.',
     mascotTip: 'Chú chim chăm chỉ tha rơm trước!',
+    explanation: 'Thứ tự đúng của câu chuyện: Chú chim tha từng nhánh cỏ khô về cành, đan thành chiếc tổ êm ấm, rồi đẻ những quả trứng tí hon.',
   },
   {
     id: 10,
@@ -1056,5 +1077,6 @@ export const STORY_SEQUENCE_ROUNDS: StorySequenceRound[] = [
     ],
     narration: 'Lấy giấy, vẽ nét chì rồi tô màu sắc tuyệt đẹp tặng cô.',
     mascotTip: 'Chúc mừng bé đã sắp xếp đúng câu chuyện!',
+    explanation: 'Thứ tự đúng của câu chuyện: Trải tờ giấy trắng tinh ra bàn, dùng bút chì vẽ nét thân quen, rồi tô màu rực rỡ tặng cô giáo.',
   },
 ];

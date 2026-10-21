@@ -214,7 +214,7 @@ export const StageForestView: React.FC<Props> = ({
       audioManager.playSoundEffect('correct');
       setStarsEarned((prev) => prev + currentTask.stars);
       setCorrectCount((prev) => prev + 1);
-      audioManager.speakOngVang('Hoan hô bé! Bé đã chọn rất chính xác!');
+      audioManager.speakFeedback(true, currentTask.explanation);
 
       // Save task to storage
       storageService.completeJourneyTask(
@@ -227,7 +227,7 @@ export const StageForestView: React.FC<Props> = ({
       onProgressUpdated();
     } else {
       audioManager.playSoundEffect('wrong');
-      audioManager.speakOngVang('Chưa đúng rồi bé ơi! Bé hãy nghe lại gợi ý và thử lại nhé!');
+      audioManager.speakFeedback(false, currentTask.explanation);
     }
   };
 
@@ -480,19 +480,33 @@ export const StageForestView: React.FC<Props> = ({
             ) : (
               <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div
-                  className={`p-4 rounded-2xl border-2 flex items-center gap-3 w-full sm:w-auto flex-1 ${
+                  className={`p-4 rounded-2xl border-2 flex items-center justify-between gap-3 w-full sm:w-auto flex-1 ${
                     isCorrect
                       ? 'bg-emerald-100 border-emerald-400 text-emerald-950'
                       : 'bg-amber-100 border-amber-400 text-amber-950'
                   }`}
                 >
-                  <div className="text-3xl">{isCorrect ? '🎉' : '💡'}</div>
-                  <div className="text-xs sm:text-sm font-semibold">
-                    <div className="font-black text-sm">
-                      {isCorrect ? 'Chính xác! Bé mở được một lối đi!' : 'Gợi ý từ Cô Đào:'}
+                  <div className="flex items-center gap-3">
+                    <div className="text-3xl">{isCorrect ? '🎉' : '💡'}</div>
+                    <div className="text-xs sm:text-sm font-semibold">
+                      <div className="font-black text-sm">
+                        {isCorrect ? 'Chính xác! Bé mở được một lối đi!' : 'Gợi ý từ Cô Đào:'}
+                      </div>
+                      <div>{currentTask.explanation}</div>
                     </div>
-                    <div>{currentTask.explanation}</div>
                   </div>
+                  <button
+                    onClick={() => audioManager.speakFeedback(isCorrect, currentTask.explanation)}
+                    title="Nghe lại lời nhận xét và giải thích"
+                    className={`p-2 rounded-xl flex items-center gap-1 font-bold text-xs shadow-sm transition-all hover:scale-105 cursor-pointer shrink-0 ${
+                      isCorrect
+                        ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                        : 'bg-amber-600 hover:bg-amber-700 text-white'
+                    }`}
+                  >
+                    <Volume2 className="w-4 h-4" />
+                    <span className="hidden sm:inline">Nghe lại</span>
+                  </button>
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">

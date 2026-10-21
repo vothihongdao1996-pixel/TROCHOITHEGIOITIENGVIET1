@@ -411,6 +411,11 @@ export const GamePlayer: React.FC<Props> = ({
       correctAnswerText = q.options ? q.options[q.correctIndex] : 'Đáp án chuẩn';
     }
 
+    const explanationText =
+      currentQuestion?.explanation?.trim() ||
+      currentQuestion?.narration?.trim() ||
+      '';
+
     setIsChecked(true);
     setIsCorrect(correct);
 
@@ -418,7 +423,8 @@ export const GamePlayer: React.FC<Props> = ({
       audioManager.playSoundEffect('correct');
       setStarsEarned((prev) => prev + 1);
       setCorrectCount((prev) => prev + 1);
-      audioManager.speakOngVang('Giỏi lắm! Con làm đúng rồi!');
+      // Đọc liền mạch lời nhận xét và nội dung giải thích bằng giọng nữ miền Bắc
+      audioManager.speakFeedback(true, explanationText);
     } else {
       audioManager.playSoundEffect('wrong');
       setWrongCount((prev) => prev + 1);
@@ -431,7 +437,8 @@ export const GamePlayer: React.FC<Props> = ({
           correctAnswer: correctAnswerText,
         },
       ]);
-      audioManager.speakOngVang('Không sao đâu con nhé, hãy cùng xem giải thích nào!');
+      // Đọc liền mạch lời nhận xét và nội dung giải thích bằng giọng nữ miền Bắc
+      audioManager.speakFeedback(false, explanationText);
     }
   };
 
@@ -863,9 +870,21 @@ export const GamePlayer: React.FC<Props> = ({
                 {isCorrect ? 'Tuyệt vời! Con làm đúng rồi! (+1 ⭐)' : 'Chưa đúng rồi, không sao con nhé!'}
               </div>
               <p className="text-sm font-semibold mt-1">
-                {currentQuestion.explanation || 'Hãy cùng bạn Ong Vàng khám phá câu tiếp theo nhé!'}
+                {currentQuestion.explanation || currentQuestion.narration || 'Hãy cùng bạn Ong Vàng khám phá câu tiếp theo nhé!'}
               </p>
             </div>
+            <button
+              onClick={() => audioManager.speakFeedback(isCorrect, currentQuestion.explanation || currentQuestion.narration || '')}
+              title="Nghe lại lời nhận xét và giải thích"
+              className={`p-2.5 rounded-2xl flex items-center gap-1.5 font-bold text-xs sm:text-sm shadow-sm transition-all hover:scale-105 cursor-pointer shrink-0 ${
+                isCorrect
+                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                  : 'bg-amber-600 hover:bg-amber-700 text-white'
+              }`}
+            >
+              <Volume2 className="w-4 h-4" />
+              <span>Nghe lại</span>
+            </button>
           </div>
         )}
 

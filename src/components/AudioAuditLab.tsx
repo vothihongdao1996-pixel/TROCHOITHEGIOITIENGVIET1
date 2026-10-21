@@ -343,14 +343,26 @@ export const AudioAuditLab: React.FC = () => {
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => handleSpeak(l.phonemeSpeechText || l.soundText || l.lower)}
-                className="mt-2 w-full py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1 shadow-xs cursor-pointer transition-all"
-              >
-                <Volume2 className="w-3.5 h-3.5" />
-                <span>Nghe âm</span>
-              </button>
+              <div className="flex flex-col gap-1.5 mt-2">
+                <button
+                  type="button"
+                  onClick={() => handleSpeak(l.phonemeSpeechText || l.soundText || l.lower)}
+                  className="w-full py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1 shadow-xs cursor-pointer transition-all active:scale-95"
+                  title="Nghe âm đọc dùng khi ghép tiếng và đánh vần (bờ, cờ, dờ...)"
+                >
+                  <Volume2 className="w-3.5 h-3.5" />
+                  <span>Nghe âm: /{l.phonemeSpeechText}/</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSpeak(l.letterNameSpeechText || `Chữ ${l.letterName}`)}
+                  className="w-full py-1.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 border border-sky-300 font-extrabold text-xs flex items-center justify-center gap-1 shadow-xs cursor-pointer transition-all active:scale-95"
+                  title="Nghe tên con chữ trong bảng chữ cái (bê, xê, dê...)"
+                >
+                  <Volume2 className="w-3.5 h-3.5 text-sky-600" />
+                  <span>Tên: {l.letterName}</span>
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -361,9 +373,34 @@ export const AudioAuditLab: React.FC = () => {
         <h3 className="text-xl font-black text-slate-800 mb-2">
           Thử Nghiệm Văn Bản Bất Kỳ Với Máy Đọc Tiếng Việt
         </h3>
-        <p className="text-xs sm:text-sm text-slate-500 font-medium mb-4">
-          Nhập nội dung bất kỳ để kiểm tra chất lượng phát âm trước bài học:
+        <p className="text-xs sm:text-sm text-slate-500 font-medium mb-3">
+          Bấm các câu mẫu chuẩn sư phạm lớp 1 để kiểm tra thực tế:
         </p>
+
+        {/* Quick sample chips */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {[
+            { label: 'Luyện âm: "Đây là chữ b."', text: 'Đây là chữ b.' },
+            { label: 'Cấu tạo chữ: "Chữ b có nét thẳng..."', text: 'Chữ b có nét thẳng bên trái, bụng tròn bên phải hướng xuống.' },
+            { label: 'Ghép tiếng: "B + an = ban"', text: 'B + an = ban.' },
+            { label: 'Chính tả: "Điền c hay k"', text: 'Điền c hay k vào chỗ chấm: con cá, cây kem.' },
+            { label: 'Tên chữ cái: "Tên chữ cái b là bê"', text: 'Tên chữ cái b là bê.' },
+            { label: 'Hoa - thường: "Chữ in hoa B và b thường"', text: 'Chữ in hoa B đi đôi với chữ in thường b.' },
+          ].map((sample, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => {
+                setTestText(sample.text);
+                handleSpeak(sample.text);
+              }}
+              className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-emerald-100 hover:text-emerald-900 border border-slate-200 text-xs font-bold text-slate-700 transition-all cursor-pointer flex items-center gap-1 active:scale-95"
+            >
+              <Volume2 className="w-3.5 h-3.5 text-emerald-600" />
+              <span>{sample.label}</span>
+            </button>
+          ))}
+        </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
           <input

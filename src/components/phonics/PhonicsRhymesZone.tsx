@@ -360,6 +360,26 @@ export const PhonicsRhymesZone: React.FC<Props> = ({ onGoHome, onBack, onPlayGam
 
   const currentBlended = getBlendedWord(blenderInitial, blenderRhyme, blenderTone);
 
+  const handleSpellBlended = () => {
+    const toneNames: Record<string, string> = {
+      ngang: '',
+      huyen: 'huyền',
+      sac: 'sắc',
+      hoi: 'hỏi',
+      nga: 'ngã',
+      nang: 'nặng',
+    };
+    const toneName = toneNames[blenderTone];
+    const baseSyllable = getBlendedWord(blenderInitial, blenderRhyme, 'ngang');
+    let spellString = '';
+    if (toneName) {
+      spellString = `${blenderInitial} - ${blenderRhyme} - ${baseSyllable} - ${toneName} - ${currentBlended}. ${currentBlended}.`;
+    } else {
+      spellString = `${blenderInitial} - ${blenderRhyme} - ${currentBlended}. ${currentBlended}.`;
+    }
+    audioManager.speak(spellString);
+  };
+
   const handleCheckQuiz = () => {
     if (selectedOption === null || isChecked) return;
     const correct = selectedOption === currentLesson.interactiveQuiz.correctIndex;
@@ -755,13 +775,24 @@ export const PhonicsRhymesZone: React.FC<Props> = ({ onGoHome, onBack, onPlayGam
             </div>
           </div>
 
-          <button
-            onClick={() => handleSpeakItem(currentBlended)}
-            className="btn-3d-yellow px-6 py-3 rounded-2xl text-slate-900 font-black text-sm flex items-center gap-2 cursor-pointer shadow-md"
-          >
-            <Volume2 className="w-5 h-5 text-amber-800" />
-            <span>Nghe Máy Đọc Tiếng Này</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={handleSpellBlended}
+              className="px-5 py-3 rounded-2xl bg-white hover:bg-emerald-100 text-emerald-900 border-2 border-emerald-400 font-black text-sm flex items-center gap-2 cursor-pointer shadow-sm transition-all active:scale-95"
+              title="Đánh vần từng âm theo chuẩn Tiếng Việt lớp 1"
+            >
+              <Volume2 className="w-5 h-5 text-emerald-700" />
+              <span>Nghe Đánh Vần</span>
+            </button>
+            <button
+              onClick={() => handleSpeakItem(currentBlended)}
+              className="btn-3d-yellow px-5 py-3 rounded-2xl text-slate-900 font-black text-sm flex items-center gap-2 cursor-pointer shadow-md active:scale-95"
+              title="Đọc trơn toàn bộ tiếng vừa ghép"
+            >
+              <Volume2 className="w-5 h-5 text-amber-800" />
+              <span>Nghe Đọc Trơn</span>
+            </button>
+          </div>
         </div>
       </div>
 

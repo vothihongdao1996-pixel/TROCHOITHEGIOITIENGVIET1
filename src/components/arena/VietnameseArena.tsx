@@ -166,10 +166,10 @@ export const VietnameseArena: React.FC<Props> = ({
       setScore((prev) => prev + earned);
       setStars((prev) => prev + 1);
       setCorrectCount((prev) => prev + 1);
-      audioManager.speakOngVang('Chính xác! Bé được cộng điểm và 1 ngôi sao!');
+      audioManager.speakFeedback(true, currentQuestion.explanation);
     } else {
       audioManager.playSoundEffect('wrong');
-      audioManager.speakOngVang('Chưa chính xác rồi, hãy đọc kỹ gợi ý nhé bé!');
+      audioManager.speakFeedback(false, currentQuestion.explanation);
     }
   };
 
@@ -677,18 +677,32 @@ export const VietnameseArena: React.FC<Props> = ({
               </button>
             ) : (
               <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className={`p-4 rounded-2xl border-2 flex items-center gap-3 w-full sm:w-auto flex-1 ${
+                <div className={`p-4 rounded-2xl border-2 flex items-center justify-between gap-3 w-full sm:w-auto flex-1 ${
                   isCorrect
                     ? 'bg-emerald-50 border-emerald-400 text-emerald-900'
                     : 'bg-amber-50 border-amber-400 text-amber-900'
                 }`}>
-                  <div className="text-2xl">{isCorrect ? '🎉' : '💡'}</div>
-                  <div className="text-xs sm:text-sm font-semibold">
-                    <div className="font-black text-sm">
-                      {isCorrect ? 'Chính xác! Bé xuất sắc quá!' : 'Gợi ý giải thích từ cô giáo:'}
+                  <div className="flex items-center gap-3">
+                    <div className="text-2xl">{isCorrect ? '🎉' : '💡'}</div>
+                    <div className="text-xs sm:text-sm font-semibold">
+                      <div className="font-black text-sm">
+                        {isCorrect ? 'Tuyệt vời! Con làm đúng rồi!' : 'Chưa đúng rồi, không sao con nhé!'}
+                      </div>
+                      <div>{currentQuestion.explanation}</div>
                     </div>
-                    <div>{currentQuestion.explanation}</div>
                   </div>
+                  <button
+                    onClick={() => audioManager.speakFeedback(isCorrect, currentQuestion.explanation)}
+                    title="Nghe lại lời nhận xét và giải thích"
+                    className={`p-2 rounded-xl flex items-center gap-1 font-bold text-xs shadow-sm transition-all hover:scale-105 cursor-pointer shrink-0 ${
+                      isCorrect
+                        ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                        : 'bg-amber-600 hover:bg-amber-700 text-white'
+                    }`}
+                  >
+                    <Volume2 className="w-4 h-4" />
+                    <span className="hidden sm:inline">Nghe lại</span>
+                  </button>
                 </div>
 
                 <button

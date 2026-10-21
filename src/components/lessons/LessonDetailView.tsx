@@ -704,8 +704,21 @@ export const LessonDetailView: React.FC<Props> = ({
 
                 {/* Explanation */}
                 {isPracticeChecked && (
-                  <div className="mt-6 p-4 rounded-2xl bg-white border-2 border-emerald-200 text-center font-bold text-sm text-slate-700">
-                    💡 {lesson.practiceQuestions[practiceQuestionIndex].explanation}
+                  <div className="mt-6 p-4 rounded-2xl bg-white border-2 border-emerald-200 text-center font-bold text-sm text-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div className="text-left flex-1">
+                      💡 {lesson.practiceQuestions[practiceQuestionIndex].explanation}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const isCorrect = selectedPracticeOption === lesson.practiceQuestions[practiceQuestionIndex].correctIndex;
+                        audioManager.speakFeedback(isCorrect, lesson.practiceQuestions[practiceQuestionIndex].explanation);
+                      }}
+                      className="px-3.5 py-1.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-900 font-extrabold text-xs flex items-center gap-1.5 cursor-pointer shrink-0 transition-all active:scale-95 border border-emerald-300"
+                    >
+                      <Volume2 className="w-3.5 h-3.5 text-emerald-700" />
+                      <span>Nghe lời giải</span>
+                    </button>
                   </div>
                 )}
 
@@ -719,13 +732,15 @@ export const LessonDetailView: React.FC<Props> = ({
                           return;
                         }
                         setIsPracticeChecked(true);
-                        const isCorrect = selectedPracticeOption === lesson.practiceQuestions[practiceQuestionIndex].correctIndex;
+                        const curQ = lesson.practiceQuestions[practiceQuestionIndex];
+                        const isCorrect = selectedPracticeOption === curQ.correctIndex;
                         if (isCorrect) {
                           audioManager.playSoundEffect('correct');
                           setPracticeScore(practiceScore + 1);
                         } else {
                           audioManager.playSoundEffect('wrong');
                         }
+                        audioManager.speakFeedback(isCorrect, curQ.explanation);
                       }}
                       className="btn-3d-yellow px-6 py-2.5 rounded-2xl font-black text-sm shadow-md cursor-pointer"
                     >
